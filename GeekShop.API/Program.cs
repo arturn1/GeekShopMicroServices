@@ -1,4 +1,25 @@
+using GeekShop.API.Context;
+using GeekShop.ProductAPI.Repository;
+using GeekShopping.API.Config;
+using GeekShopping.ProductAPI.Repository;
+using Microsoft.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+//Add IoC
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+//Add AutoMapper
+
+builder.Services.AddAutoMapper(typeof(ProductProfile));
+
+//Add DbConnection
+
+var connectionString = builder.Configuration.GetConnectionString("AppDb");
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 // Add services to the container.
 
