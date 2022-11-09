@@ -1,7 +1,8 @@
-﻿@model IEnumerable<GeekShop.Web.Models.ProductViewModel>
+﻿@using Microsoft.AspNetCore.Authentication
+@model IEnumerable<GeekShop.Web.Models.ProductViewModel>
 
-<br/>
-<br/>
+<br />
+<br />
 <div class="container p-4 border">
     <div class="row pb-2">
         <div class="col">
@@ -13,6 +14,27 @@
             </a>
         </div>
     </div>
+
+    <h2>Claims</h2>
+
+    <dl>
+        @foreach (var claim in User.Claims)
+        {
+            <dt>@claim.Type</dt>
+            <dd>@claim.Value</dd>
+        }
+    </dl>
+
+    <h2>Properties</h2>
+
+    <dl>
+        @foreach (var prop in (await Context.AuthenticateAsync()).Properties.Items)
+        {
+            <dt>@prop.Key</dt>
+            <dd>@prop.Value</dd>
+        }
+    </dl>
+
     <table class="table">
         <thead>
             <tr>
@@ -41,14 +63,12 @@
                         @((item.price).ToString("c"))
                     </td>
                     <td>
-                       <a asp-action="ProductUpdate" class="btn btn-success" asp-route-id="@item.id">
-                           <i class="fas fa-edit"></i>
-                       </a>
-                       @if(User.IsInRole("Admin")){
-                            <a asp-action="ProductDelete" class="btn btn-danger" asp-route-id="@item.id">
-                               <i class="fas fa-trash"></i>
-                           </a>
-                       }
+                        <a asp-action="ProductUpdate" class="btn btn-success" asp-route-id="@item.id">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a asp-action="ProductDelete" class="btn btn-danger" asp-route-id="@item.id">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
             }

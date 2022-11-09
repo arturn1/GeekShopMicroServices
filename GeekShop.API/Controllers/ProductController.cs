@@ -18,6 +18,7 @@ namespace GeekShop.API.Controllers
                 ArgumentNullException(nameof(repository));
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductVO>>> FindAll()
         {
@@ -26,7 +27,7 @@ namespace GeekShop.API.Controllers
         }
 
         [HttpGet("{id}")]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<ProductVO>> FindById(Guid id)
         {
             var product = await _repository.FindById(id);
@@ -35,7 +36,7 @@ namespace GeekShop.API.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<ProductVO>> Create([FromBody] ProductVO vo)
         {
             if (vo == null) return BadRequest();
@@ -44,7 +45,7 @@ namespace GeekShop.API.Controllers
         }
 
         [HttpPut]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult<ProductVO>> Update([FromBody] ProductVO vo)
         {
             if (vo == null) return BadRequest();
@@ -53,7 +54,6 @@ namespace GeekShop.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = Role.Admin)]
         public async Task<ActionResult> Delete(Guid id)
         {
             var status = await _repository.Delete(id);
