@@ -30,6 +30,12 @@ namespace GeekShop.Web.Services
             return await response.ReadContentAs<List<ProductViewModel>>();
         }
 
+        public async Task<IEnumerable<ProductViewModel>> FindAllProducts()
+        {
+            var response = await _client.GetAsync(BasePath);
+            return await response.ReadContentAs<List<ProductViewModel>>();
+        }
+
         public async Task<ProductViewModel> FindProductById(Guid id, string token)
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

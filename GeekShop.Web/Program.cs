@@ -27,9 +27,9 @@ builder.Services.AddAuthentication(options =>
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.Authority = builder.Configuration["ServiceUrls:IdentityServer"];
-                    //options.Authority = "https://localhost:4435";
-                    options.ClientId = "geek_shopping";
-                    options.ClientSecret = "my_super_secret";
+                    //options.ClientId = "geek_shopping";
+                    options.ClientId = "geek_shoppingComplete";
+                    //options.ClientSecret = "my_super_secret";
                     options.ResponseType = "code";
                     options.ClaimActions.MapUniqueJsonKey("role", "role");
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -37,15 +37,12 @@ builder.Services.AddAuthentication(options =>
                         NameClaimType = "name",
                         RoleClaimType = "role"
                     };
-                    //options.TokenValidationParameters.NameClaimType = "name";
-                    //options.TokenValidationParameters.RoleClaimType = "role";
-                    //options.ClaimActions.MapJsonKey("role", "role", "role");
-                    //options.TokenValidationParameters.RoleClaimType = "role";
                     options.ClaimActions.MapUniqueJsonKey("website", "website");
                     options.ClaimActions.MapUniqueJsonKey("gender", "gender");
                     options.ClaimActions.MapUniqueJsonKey("birthdate", "birthdate");
                     options.ClaimActions.MapUniqueJsonKey("nickname", "nickname");
-                    options.Scope.Add("geek_shopping");
+                    options.Scope.Add("geek_shoppingComplete_scope");
+                    //options.Scope.Add("geek_shopping");
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");
                     options.GetClaimsFromUserInfoEndpoint = true;

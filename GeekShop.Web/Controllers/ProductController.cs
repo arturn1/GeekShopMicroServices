@@ -23,10 +23,13 @@ namespace GeekShopping.Web.Controllers
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
         }
 
-       //[Authorize(Roles = "Admin")]
+       //[Authorize(Roles = "Admin, Client")]
+       [Authorize(Roles = "Client")]
         public async Task<IActionResult> ProductIndex()
         {
-            var token = await HttpContext.GetTokenAsync("access_token");
+            var access_token = await HttpContext.GetTokenAsync("access_token");
+            var id_token = await HttpContext.GetTokenAsync("id_token");
+            var token_type = await HttpContext.GetTokenAsync("token_type");
             var tok =  HttpContext.GetRouteData();
             var toke = HttpContext.GetEndpoint();
             var type = HttpContext.GetType();
@@ -35,12 +38,13 @@ namespace GeekShopping.Web.Controllers
             var userEmail = User.Claims.FirstOrDefault(x => x.Type == "email").Value;
             var userRoles = User.Claims.FirstOrDefault(x => x.Type == "role").Value;
             var userName = User.Claims.FirstOrDefault(x => x.Type == "name").Value;
-            var  userTime = Convert.ToDouble(User.Claims.FirstOrDefault(x => x.Type == "auth_time").Value);
+            var userTime = Convert.ToDouble(User.Claims.FirstOrDefault(x => x.Type == "auth_time").Value);
 
             DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
             dateTime = dateTime.AddSeconds(userTime).ToLocalTime();
 
-            var products = await _productService.FindAllProducts(token);
+            var products = await _productService.FindAllProducts(access_token);
+            // var products = await _productService.FindAllProducts();
             return View(products);
         }
 
