@@ -42,7 +42,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ApiScope", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "geek_shopping");
+        //policy.RequireClaim("scope", "geek_shoppingComplete_scope");
     });
 });
 

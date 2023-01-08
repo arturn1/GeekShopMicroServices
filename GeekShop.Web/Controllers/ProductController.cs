@@ -23,8 +23,8 @@ namespace GeekShopping.Web.Controllers
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
         }
 
-       //[Authorize(Roles = "Admin, Client")]
-       [Authorize(Roles = "Client")]
+       [Authorize(Roles = "Admin, Client")]
+       //[Authorize(Roles = "Client")]
         public async Task<IActionResult> ProductIndex()
         {
             var access_token = await HttpContext.GetTokenAsync("access_token");

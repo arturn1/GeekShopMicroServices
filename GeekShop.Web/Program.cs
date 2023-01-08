@@ -29,7 +29,7 @@ builder.Services.AddAuthentication(options =>
                     options.Authority = builder.Configuration["ServiceUrls:IdentityServer"];
                     //options.ClientId = "geek_shopping";
                     options.ClientId = "geek_shoppingComplete";
-                    //options.ClientSecret = "my_super_secret";
+                    options.ClientSecret = "my_super_secret";
                     options.ResponseType = "code";
                     options.ClaimActions.MapUniqueJsonKey("role", "role");
                     options.TokenValidationParameters = new TokenValidationParameters
