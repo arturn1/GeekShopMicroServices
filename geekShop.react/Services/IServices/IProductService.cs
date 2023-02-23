@@ -1,10 +1,6 @@
-﻿using GeekShop.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GeekShop.React.Models;
 
-namespace GeekShop.Web.Services.IServices
+namespace GeekShop.React.Services.IServices
 {
     public interface IProductService
     {

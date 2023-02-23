@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GeekShopping.Web.Controllers
@@ -23,10 +24,9 @@ namespace GeekShopping.Web.Controllers
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
         }
 
-       [Authorize(Roles = "Admin, Client")]
-       //[Authorize(Roles = "Client")]
         public async Task<IActionResult> ProductIndex()
         {
+            #region checks
             var access_token = await HttpContext.GetTokenAsync("access_token");
             var id_token = await HttpContext.GetTokenAsync("id_token");
             var token_type = await HttpContext.GetTokenAsync("token_type");
@@ -35,19 +35,26 @@ namespace GeekShopping.Web.Controllers
             var type = HttpContext.GetType();
             var typ = HttpContext.Request.Headers["Referer"].ToString();
 
-            var userEmail = User.Claims.FirstOrDefault(x => x.Type == "email").Value;
-            var userRoles = User.Claims.FirstOrDefault(x => x.Type == "role").Value;
-            var userName = User.Claims.FirstOrDefault(x => x.Type == "name").Value;
-            var userTime = Convert.ToDouble(User.Claims.FirstOrDefault(x => x.Type == "auth_time").Value);
+            var c = User.IsInRole("Client");
+            var a = User.IsInRole("Admin");
+
+            var userEmail = User.Claims.FirstOrDefault(x => x.Type == "email")?.Value;
+            var userRoles = User.Claims.FirstOrDefault(x => x.Type == "role")?.Value;
+            var userName = User.Claims.FirstOrDefault(x => x.Type == "name")?.Value;
+            var userTime = Convert.ToDouble(User.Claims.FirstOrDefault(x => x.Type == "auth_time")?.Value);
 
             DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
             dateTime = dateTime.AddSeconds(userTime).ToLocalTime();
+            #endregion
 
-            var products = await _productService.FindAllProducts(access_token);
-            // var products = await _productService.FindAllProducts();
+            EnviarEmail();
+            var products = await _productService.FindAllProducts("");
+            var name = products.FirstOrDefault().name;
+            AcabarEspera(name);
             return View(products);
         }
 
+        [Authorize(Roles = "Admin, Client")]
         public async Task<IActionResult> ProductCreate()
         {
             return View();
@@ -112,8 +119,23 @@ namespace GeekShopping.Web.Controllers
         public async Task Logout()
         {
             await HttpContext.SignOutAsync("Cookies");
-            await HttpContext.SignOutAsync("oidc");
-            await HttpContext.SignOutAsync();
+        }
+
+        private async void EnviarEmail()
+        {
+            await Task.Run(() => Task.Delay(5000));
+            Console.WriteLine("Acabei a tarefa e enviei o e-mails");
+        }
+
+        private async Task AcabarEspera(string productName)
+        {
+            await Task.Delay(7000);
+            Console.WriteLine(productName);
+        }
+
+        private async void RunInBackground(Action action)
+        {
+            await Task.Run(action);
         }
     }
 }

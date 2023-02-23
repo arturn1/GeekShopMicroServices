@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.IdentityModel.Tokens;
+using GeekShop.Web.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Add IoC
 
-builder.Services.AddHttpClient<IProductService, ProductService>(c =>
-                    c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"]));
+builder.Services.AddHttpClient<IProductService, ProductService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -27,9 +27,9 @@ builder.Services.AddAuthentication(options =>
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.Authority = builder.Configuration["ServiceUrls:IdentityServer"];
-                    //options.ClientId = "geek_shopping";
-                    options.ClientId = "geek_shoppingComplete";
-                    options.ClientSecret = "my_super_secret";
+                    options.ClientId = "geek_shopping";
+                    //optionskc.ClientId = "geek_shoppingComplete";
+                    //options.ClientSecret = "my_super_secret";
                     options.ResponseType = "code";
                     options.ClaimActions.MapUniqueJsonKey("role", "role");
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -41,8 +41,8 @@ builder.Services.AddAuthentication(options =>
                     options.ClaimActions.MapUniqueJsonKey("gender", "gender");
                     options.ClaimActions.MapUniqueJsonKey("birthdate", "birthdate");
                     options.ClaimActions.MapUniqueJsonKey("nickname", "nickname");
-                    options.Scope.Add("geek_shoppingComplete_scope");
-                    //options.Scope.Add("geek_shopping");
+                    //options.Scope.Add("geek_shoppingComplete_scope");
+                    options.Scope.Add("geek_shopping");
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");
                     options.GetClaimsFromUserInfoEndpoint = true;
@@ -65,17 +65,13 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 
-try
-{
-    app.UseAuthorization();
-}
-catch
-{
-    app.UseExceptionHandler();
-}
+app.UseGetRolesMiddleware();
+
+
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Product}/{action=ProductIndex}/{id?}").RequireAuthorization(); ;
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
