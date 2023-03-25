@@ -5,9 +5,11 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "geekShop.web", "GeekShop.Web\geekShop.web.csproj", "{58C0CD4E-29C4-4926-A826-BD2A65CF3E9C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "geekShop.api", "GeekShop.API\geekShop.api.csproj", "{D231D614-C80C-4E05-B9C2-FD21ABFD6575}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "geekShop.react", "geekShop.react\geekShop.react.csproj", "{2FC33EAF-69EE-4F0F-8925-80098A290477}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "geekShop.react", "geekShop.react\geekShop.react.csproj", "{2FC33EAF-69EE-4F0F-8925-80098A290477}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "geekShop.productAPI", "GeekShop.productAPI\geekShop.productAPI.csproj", "{D7381F63-FFA6-4BD0-BCA0-E0645D3CAAA5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "geekShop.cartAPI", "geekShop.cartAPI\geekShop.cartAPI.csproj", "{535C3EC0-98A0-4087-8F4A-475BBEF2891B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +21,18 @@ Global
 		{58C0CD4E-29C4-4926-A826-BD2A65CF3E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58C0CD4E-29C4-4926-A826-BD2A65CF3E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58C0CD4E-29C4-4926-A826-BD2A65CF3E9C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D231D614-C80C-4E05-B9C2-FD21ABFD6575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D231D614-C80C-4E05-B9C2-FD21ABFD6575}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D231D614-C80C-4E05-B9C2-FD21ABFD6575}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D231D614-C80C-4E05-B9C2-FD21ABFD6575}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2FC33EAF-69EE-4F0F-8925-80098A290477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2FC33EAF-69EE-4F0F-8925-80098A290477}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FC33EAF-69EE-4F0F-8925-80098A290477}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FC33EAF-69EE-4F0F-8925-80098A290477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7381F63-FFA6-4BD0-BCA0-E0645D3CAAA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7381F63-FFA6-4BD0-BCA0-E0645D3CAAA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7381F63-FFA6-4BD0-BCA0-E0645D3CAAA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7381F63-FFA6-4BD0-BCA0-E0645D3CAAA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{535C3EC0-98A0-4087-8F4A-475BBEF2891B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{535C3EC0-98A0-4087-8F4A-475BBEF2891B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{535C3EC0-98A0-4087-8F4A-475BBEF2891B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{535C3EC0-98A0-4087-8F4A-475BBEF2891B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

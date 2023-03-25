@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GeekShop.CartAPI.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace GeekShopping.CartAPI.Model.Context
 {

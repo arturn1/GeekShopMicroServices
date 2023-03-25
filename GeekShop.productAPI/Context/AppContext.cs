@@ -1,4 +1,4 @@
-﻿using GeekShop.API.Models;
+﻿using GeekShop.ProductAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GeekShop.ProductAPI.Context

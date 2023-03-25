@@ -1,5 +1,5 @@
 ﻿
-using GeekShop.API.Data.ValueObjects;
+using GeekShop.ProductAPI.Data.ValueObjects;
 using GeekShop.ProductAPI.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

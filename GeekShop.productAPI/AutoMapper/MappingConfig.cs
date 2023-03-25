@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using GeekShop.API.Data.ValueObjects;
-using GeekShop.API.Models;
+using GeekShop.ProductAPI.Data.ValueObjects;
+using GeekShop.ProductAPI.Models;
 
 namespace GeekShopping.ProductAPI.Config
 {
