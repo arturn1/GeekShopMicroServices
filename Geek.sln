@@ -5,13 +5,11 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "geekShop.web", "GeekShop.Web\geekShop.web.csproj", "{58C0CD4E-29C4-4926-A826-BD2A65CF3E9C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{BAA41003-6917-4E35-A3D3-E4CA510A8CEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "geekShop.react", "geekShop.react\geekShop.react.csproj", "{2FC33EAF-69EE-4F0F-8925-80098A290477}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D5B341E7-BE30-463A-87D9-C08C7AC64ED9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "geekShop.productAPI", "GeekShop.productAPI\geekShop.productAPI.csproj", "{D7381F63-FFA6-4BD0-BCA0-E0645D3CAAA5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "geekShop.cartAPI", "geekShop.cartAPI\geekShop.cartAPI.csproj", "{BAA80FDF-8BCD-456F-90BF-F0CA92F9B168}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "geekShop.productAPI", "GeekShop.productAPI\geekShop.productAPI.csproj", "{5F7B351E-21B8-4C64-B15F-9DC44A636E66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "geekShop.cartAPI", "geekShop.cartAPI\geekShop.cartAPI.csproj", "{535C3EC0-98A0-4087-8F4A-475BBEF2891B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +21,18 @@ Global
 		{58C0CD4E-29C4-4926-A826-BD2A65CF3E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58C0CD4E-29C4-4926-A826-BD2A65CF3E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58C0CD4E-29C4-4926-A826-BD2A65CF3E9C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BAA80FDF-8BCD-456F-90BF-F0CA92F9B168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAA80FDF-8BCD-456F-90BF-F0CA92F9B168}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BAA80FDF-8BCD-456F-90BF-F0CA92F9B168}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BAA80FDF-8BCD-456F-90BF-F0CA92F9B168}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F7B351E-21B8-4C64-B15F-9DC44A636E66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F7B351E-21B8-4C64-B15F-9DC44A636E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F7B351E-21B8-4C64-B15F-9DC44A636E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F7B351E-21B8-4C64-B15F-9DC44A636E66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FC33EAF-69EE-4F0F-8925-80098A290477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC33EAF-69EE-4F0F-8925-80098A290477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FC33EAF-69EE-4F0F-8925-80098A290477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC33EAF-69EE-4F0F-8925-80098A290477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7381F63-FFA6-4BD0-BCA0-E0645D3CAAA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7381F63-FFA6-4BD0-BCA0-E0645D3CAAA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7381F63-FFA6-4BD0-BCA0-E0645D3CAAA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7381F63-FFA6-4BD0-BCA0-E0645D3CAAA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{535C3EC0-98A0-4087-8F4A-475BBEF2891B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{535C3EC0-98A0-4087-8F4A-475BBEF2891B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{535C3EC0-98A0-4087-8F4A-475BBEF2891B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{535C3EC0-98A0-4087-8F4A-475BBEF2891B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,7 +15,7 @@ namespace GeekShop.ProductAPI.Migrations
     [Migration("20230114211430_SeedProductTable")]
     partial class SeedProductTable
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
