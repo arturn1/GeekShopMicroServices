@@ -1,9 +1,22 @@
-using GeekShop.CartAPI.Model.Context;
+using AutoMapper;
+using GeekShop.CartAPI.AutoMapper;
+using GeekShop.CartAPI.Repository;
+using GeekShopping.CartAPI.Model.Context;
+using GeekShopping.CartAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+//Add AutoMapper
+IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+//Add IoC
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 
 //Add DbConnection

@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Add IoC
 
 builder.Services.AddHttpClient<IProductService, ProductService>();
+builder.Services.AddHttpClient<ICartService, CartService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -27,11 +28,12 @@ builder.Services.AddAuthentication(options =>
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.Authority = builder.Configuration["ServiceUrls:IdentityServer"];
-                    options.ClientId = "geek_shopping";
-                    //optionskc.ClientId = "geek_shoppingComplete";
-                    //options.ClientSecret = "my_super_secret";
+                    //options.ClientId = "geek_shopping";
+                    options.ClientId = "geek_shoppingComplete";
+                    options.ClientSecret = "my_super_secret";
                     options.ResponseType = "code";
                     options.ClaimActions.MapUniqueJsonKey("role", "role");
+                    options.ClaimActions.MapUniqueJsonKey("sub", "sub");
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         NameClaimType = "name",
@@ -41,8 +43,8 @@ builder.Services.AddAuthentication(options =>
                     options.ClaimActions.MapUniqueJsonKey("gender", "gender");
                     options.ClaimActions.MapUniqueJsonKey("birthdate", "birthdate");
                     options.ClaimActions.MapUniqueJsonKey("nickname", "nickname");
-                    //options.Scope.Add("geek_shoppingComplete_scope");
-                    options.Scope.Add("geek_shopping");
+                    options.Scope.Add("geek_shoppingComplete_scope");
+                    //options.Scope.Add("geek_shopping");
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");
                     options.GetClaimsFromUserInfoEndpoint = true;
