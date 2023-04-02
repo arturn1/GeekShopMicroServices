@@ -10,7 +10,7 @@ const Product = () => {
   const URLProductscontroller = 'product';
 
   useEffect(() => {
-    fetch(URLProductscontroller)
+    fetch(URLProducts)
       .then(response => response.json())
       .then(data => SetProducts(data))
   },[]);
@@ -21,7 +21,7 @@ const Product = () => {
       {
         products.map(product => {
           return(
-          <h6 key={product.id}>{product.id}</h6>
+          <h6 key={product.id}>{product.name}</h6>
           )
         })
       }
