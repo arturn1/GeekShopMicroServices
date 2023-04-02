@@ -4,26 +4,26 @@ namespace GeekShop.Web.Models
 {
     public class ProductViewModel
     {
-        public Guid id { get; set; }
-        public string name { get; set; }
-        public decimal price { get; set; }
-        public string description { get; set; }
-        public string categoryName { get; set; }
-        public string imageURL { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public string Description { get; set; }
+        public string CategoryName { get; set; }
+        public string ImageURL { get; set; }
 
         [Range(1, 100)]
         public int Count { get; set; } = 1;
 
         public string SubstringName()
         {
-            if (name.Length < 24) return name;
-            return $"{name.Substring(0, 21) } ...";
+            if (Name.Length < 24) return Name;
+            return $"{ Name.Substring(0, 21) } ...";
         }
 
         public string SubstringDescription()
         {
-            if (description.Length < 355) return description;
-            return $"{description.Substring(0, 352) } ...";
+            if (Description.Length < 355) return Description;
+            return $"{ Description.Substring(0, 352) } ...";
         }
     }
 }

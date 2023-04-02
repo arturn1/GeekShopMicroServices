@@ -1,7 +1,6 @@
 using GeekShop.ProductAPI.Context;
 using GeekShop.ProductAPI.Repository;
-using GeekShopping.ProductAPI.Config;
-using GeekShopping.ProductAPI.Repository;
+using GeekShop.ProductAPI.AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;

@@ -49,7 +49,7 @@ namespace GeekShopping.Web.Controllers
 
             EnviarEmail();
             var products = await _productService.FindAllProducts("");
-            var name = products.FirstOrDefault().name;
+            var name = products.FirstOrDefault().Name;
             AcabarEspera(name);
             return View(products);
         }
@@ -110,7 +110,7 @@ namespace GeekShopping.Web.Controllers
         public async Task<IActionResult> ProductDelete(ProductViewModel model)
         {
             var token = await HttpContext.GetTokenAsync("access_token");
-            var response = await _productService.DeleteProductById(model.id, token);
+            var response = await _productService.DeleteProductById(model.Id, token);
             if (response) return RedirectToAction(
                     nameof(ProductIndex));
             return View(model);

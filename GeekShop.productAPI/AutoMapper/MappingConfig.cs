@@ -2,7 +2,7 @@
 using GeekShop.ProductAPI.Data.ValueObjects;
 using GeekShop.ProductAPI.Models;
 
-namespace GeekShopping.ProductAPI.Config
+namespace GeekShop.ProductAPI.AutoMapper
 {
     public class ProductProfile : Profile
     {

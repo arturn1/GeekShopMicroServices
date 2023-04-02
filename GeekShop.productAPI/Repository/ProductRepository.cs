@@ -6,7 +6,7 @@ using GeekShop.ProductAPI.Models;
 using GeekShop.ProductAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace GeekShopping.ProductAPI.Repository
+namespace GeekShop.ProductAPI.Repository
 {
     public class ProductRepository : IProductRepository
     {

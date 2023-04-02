@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace GeekShop.API.Migrations
+namespace GeekShop.ProductAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20221004003210_AddProductTable")]
