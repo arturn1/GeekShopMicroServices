@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
 
+interface IProduct{
+  id: string;
+  name: string
+}
+
+
 const Product = () => {
 
-  const [products, SetProducts] = useState([]);
+  const [products, SetProducts] = useState<IProduct[]>([]);
 
   const url = 'https://jsonplaceholder.typicode.com/posts?_limit=10';
   const URLProducts = 'https://localhost:4440/api/v1/product';
-  const URLProductscontroller = 'product';
+  const URLProductscontroller = 'product/product';
 
   useEffect(() => {
-    fetch(URLProducts)
+    fetch(URLProductscontroller)
       .then(response => response.json())
       .then(data => SetProducts(data))
   },[]);
@@ -21,7 +27,7 @@ const Product = () => {
       {
         products.map(product => {
           return(
-          <h6 key={product.id}>{product.name}</h6>
+          <h6 key={product.id }>{product.name}</h6>
           )
         })
       }

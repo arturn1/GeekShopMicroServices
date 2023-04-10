@@ -13,44 +13,11 @@ builder.Services.AddHttpClient<IProductService, ProductService>();
 // Add services to the container.
 
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = "Cookies";
-    options.DefaultChallengeScheme = "oidc";
-})
-                .AddCookie("Cookies", c =>
-                {
-                    c.ExpireTimeSpan = TimeSpan.FromMinutes(10);
-                    c.Cookie.SameSite = SameSiteMode.Strict;
-                })
-                .AddOpenIdConnect("oidc", options =>
-                {
-                    options.Authority = builder.Configuration["ServiceUrls:IdentityServer"];
-                    options.ClientId = "geek_shopping";
-                    //optionskc.ClientId = "geek_shoppingComplete";
-                    //options.ClientSecret = "my_super_secret";
-                    options.ResponseType = "code";
-                    options.ClaimActions.MapUniqueJsonKey("role", "role");
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        NameClaimType = "name",
-                        RoleClaimType = "role"
-                    };
-                    options.ClaimActions.MapUniqueJsonKey("website", "website");
-                    options.ClaimActions.MapUniqueJsonKey("gender", "gender");
-                    options.ClaimActions.MapUniqueJsonKey("birthdate", "birthdate");
-                    options.ClaimActions.MapUniqueJsonKey("nickname", "nickname");
-                    //options.Scope.Add("geek_shoppingComplete_scope");
-                    options.Scope.Add("geek_shopping");
-                    options.Scope.Add("openid");
-                    options.Scope.Add("profile");
-                    options.GetClaimsFromUserInfoEndpoint = true;
-                    options.SaveTokens = true;
-                }
-            );
-
-
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSpaStaticFiles(c =>
+    c.RootPath = "ClientApp/build"
+);
 
 var app = builder.Build();
 
@@ -65,13 +32,18 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-//app.UseCors("CorsPolicy");
+app.UseAuthentication();
 
+app.UseAuthorization();
+
+app.MapFallbackToFile("index.html"); ;
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapFallbackToFile("index.html"); ;
+app.UseSpa(c =>
+    c.Options.SourcePath = "ClientApp"
+);
 
 app.Run();

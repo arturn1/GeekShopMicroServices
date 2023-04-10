@@ -7,9 +7,9 @@ function App() {
 
 
     const config = {
-        onSignIn: async (user) => {
+        onSignIn: async (user : any) => {
             alert('You just signed in, congratz! Check out the console!');
-            console.log(user);
+            console.log(JSON.stringify(user, null, 2));
             window.location.hash = '';
         },
         authority: "https://localhost:4435",
