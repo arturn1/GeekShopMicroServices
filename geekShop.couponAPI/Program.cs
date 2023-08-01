@@ -1,31 +1,34 @@
-using GeekShop.ProductAPI.Context;
-using GeekShop.ProductAPI.Repository;
-using GeekShop.ProductAPI.AutoMapper;
+using AutoMapper;
+using GeekShop.CouponAPI.Config;
+using GeekShop.CouponAPI.Model.Context;
+using GeekShop.CouponAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Microsoft.IdentityModel.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Add IoC
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 //Add AutoMapper
+IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddAutoMapper(typeof(ProductProfile));
+//Add IoC
+
+//Add IoC
+builder.Services.AddScoped<ICouponRepository, CouponRepository>();
 
 //Add DbConnection
 
 var connectionString = builder.Configuration.GetConnectionString("AppDb");
 
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<MySQLContext>(options =>
     options.UseSqlServer(connectionString));
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-IdentityModelEventSource.ShowPII = true;
 
 
 builder.Services.AddAuthentication("Bearer")
@@ -79,6 +82,13 @@ builder.Services.AddSwaggerGen(c =>
                 });
 });
 
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -91,6 +101,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

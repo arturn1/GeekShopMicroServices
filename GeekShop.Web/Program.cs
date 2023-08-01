@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.IdentityModel.Tokens;
 using GeekShop.Web.Middleware;
+using GeekShopping.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient<IProductService, ProductService>();
 builder.Services.AddHttpClient<ICartService, CartService>();
+builder.Services.AddHttpClient<ICouponService, CouponService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -32,8 +34,8 @@ builder.Services.AddAuthentication(options =>
                     options.ClientId = "geek_shoppingComplete";
                     options.ClientSecret = "my_super_secret";
                     options.ResponseType = "code";
-                    options.ClaimActions.MapUniqueJsonKey("role", "role");
-                    options.ClaimActions.MapUniqueJsonKey("sub", "sub");
+                    options.ClaimActions.MapUniqueJsonKey("role", "role", "role");
+                    options.ClaimActions.MapUniqueJsonKey("sub", "sub","sub");
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         NameClaimType = "name",

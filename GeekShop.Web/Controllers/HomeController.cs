@@ -4,6 +4,7 @@ using GeekShop.Web.Services.IServices;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GeekShop.Web.Controllers
 {
@@ -47,7 +48,7 @@ namespace GeekShop.Web.Controllers
             {
                 CartHeader = new CartHeaderViewModel
                 {
-                    UserId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value
+                    UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
                 }
             };
 

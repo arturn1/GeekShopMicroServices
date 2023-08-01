@@ -1,38 +1,51 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './style.css';
+import { AuthContext } from 'oidc-react';
+import { CCard, CCardImage, CCardBody, CCardTitle, CCardText, CButton } from '@coreui/react'
 
-interface IProduct{
+interface IProduct {
   id: string;
-  name: string
+  name: string;
+  imageURL: string
+  categoryName: string
 }
 
+const useAuth = () => {
+  return useContext(AuthContext);
+};
 
 const Product = () => {
-
   const [products, SetProducts] = useState<IProduct[]>([]);
+  const user = useAuth();
 
-  const url = 'https://jsonplaceholder.typicode.com/posts?_limit=10';
   const URLProducts = 'https://localhost:4440/api/v1/product';
-  const URLProductscontroller = 'product/product';
 
   useEffect(() => {
-    fetch(URLProductscontroller)
-      .then(response => response.json())
-      .then(data => SetProducts(data))
-  },[]);
+    fetch(URLProducts)
+      .then((response) => response.json())
+      .then((data) => SetProducts(data));
+  }, []);
 
   return (
     <div>
       <h1>Produtos</h1>
-      {
-        products.map(product => {
-          return(
-          <h6 key={product.id }>{product.name}</h6>
-          )
-        })
-      }
+      <div className='products'>
+        {products.map(product => (
+          <div>
+            <CCard style={{ width: '18rem' }}>
+              <CCardBody>
+                <CCardTitle>{product.name}</CCardTitle>
+                <CCardImage orientation="top" src={product.imageURL} />
+                <CCardText>
+                  {product.categoryName}
+                </CCardText>
+              </CCardBody>
+            </CCard>
+          </div>
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default Product;

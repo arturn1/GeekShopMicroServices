@@ -46,7 +46,7 @@ namespace GeekShop.Web.Services
             else throw new Exception("Something went wrong when calling API");
         }
 
-        public async Task<bool> RemoveFromCart(long cartId, string token)
+        public async Task<bool> RemoveFromCart(Guid cartId, string token)
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var response = await _client.DeleteAsync($"{BasePath}/remove-cart/{cartId}");
