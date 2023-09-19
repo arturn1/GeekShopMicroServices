@@ -1,7 +1,7 @@
 ﻿using GeekShop.CartAPI.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace GeekShopping.CartAPI.Model.Context
+namespace GeekShop.CartAPI.Model.Context
 {
     public class AppDbContext : DbContext
     {

@@ -2,13 +2,13 @@
 using GeekShop.CartAPI.Data.ValueObjects;
 using GeekShop.CartAPI.Model;
 using GeekShop.CartAPI.Repository;
-using GeekShopping.CartAPI.Model.Context;
+using GeekShop.CartAPI.Model.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GeekShopping.CartAPI.Repository
+namespace GeekShop.CartAPI.Repository
 {
     public class CartRepository : ICartRepository
     {

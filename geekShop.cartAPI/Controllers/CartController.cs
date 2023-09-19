@@ -1,4 +1,6 @@
 ﻿using GeekShop.CartAPI.Data.ValueObjects;
+using GeekShop.CartAPI.Messages;
+using GeekShop.CartAPI.RabbitMQSender;
 using GeekShop.CartAPI.Repository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +13,16 @@ namespace geekShop.cartAPI.Controllers
     {
         private ICartRepository _cartRepository;
         //private ICouponRepository _couponRepository;
+        private IRabbitMQMessageSender _rabbitMQMessageSender;
 
-        public CartController(ICartRepository cartRepository
-            /*ICouponRepository couponRepository*/)
+
+        public CartController(ICartRepository cartRepository/*, ICouponRepository couponRepository*/,
+            IRabbitMQMessageSender rabbitMQMessageSender)
         {
             _cartRepository = cartRepository ?? throw new ArgumentNullException(nameof(cartRepository));
             //_couponRepository = couponRepository ?? throw new ArgumentNullException(nameof(couponRepository));
+            _rabbitMQMessageSender = rabbitMQMessageSender ?? throw new ArgumentNullException(nameof(rabbitMQMessageSender));
+
         }
 
         [HttpGet("find-cart/{id}")]
@@ -67,33 +73,33 @@ namespace geekShop.cartAPI.Controllers
             return Ok(status);
         }
 
-        //[HttpPost("checkout")]
-        //public async Task<ActionResult<CheckoutHeaderVO>> Checkout(CheckoutHeaderVO vo)
-        //{
-        //    // string token = Request.Headers["Authorization"];
-        //    var token = await HttpContext.GetTokenAsync("access_token");
+        [HttpPost("checkout")]
+        public async Task<ActionResult<CheckoutHeaderVO>> Checkout(CheckoutHeaderVO vo)
+        {
+            // string token = Request.Headers["Authorization"];
+            var token = await HttpContext.GetTokenAsync("access_token");
 
-        //    if (vo?.UserId == null) return BadRequest();
-        //    var cart = await _cartRepository.FindCartByUserId(vo.UserId);
-        //    if (cart == null) return NotFound();
-        //    if (!string.IsNullOrEmpty(vo.CouponCode))
-        //    {
-        //        CouponVO coupon = await _couponRepository.GetCoupon(
-        //            vo.CouponCode, token);
-        //        if (vo.DiscountAmount != coupon.DiscountAmount)
-        //        {
-        //            return StatusCode(412);
-        //        }
-        //    }
-        //    vo.CartDetails = cart.CartDetails;
-        //    vo.DateTime = DateTime.Now;
+            if (vo?.UserId == null) return BadRequest();
+            var cart = await _cartRepository.FindCartByUserId(vo.UserId);
+            if (cart == null) return NotFound();
+            //if (!string.IsNullOrEmpty(vo.CouponCode))
+            //{
+            //    CouponVO coupon = await _couponRepository.GetCoupon(
+            //        vo.CouponCode, token);
+            //    if (vo.DiscountAmount != coupon.DiscountAmount)
+            //    {
+            //        return StatusCode(412);
+            //    }
+            //}
+            vo.CartDetails = cart.CartDetails;
+            vo.DateTime = DateTime.Now;
 
-        //    // RabbitMQ logic comes here!!!
-        //    _rabbitMQMessageSender.SendMessage(vo, "checkoutqueue");
+            // RabbitMQ logic comes here!!!
+            _rabbitMQMessageSender.SendMessage(vo, "checkoutqueue");
 
-        //    await _cartRepository.ClearCart(vo.UserId);
+            await _cartRepository.ClearCart(vo.UserId);
 
-        //    return Ok(vo);
-        //}
+            return Ok(vo);
+        }
     }
 }

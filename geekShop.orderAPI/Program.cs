@@ -1,37 +1,37 @@
-using AutoMapper;
-using GeekShop.CartAPI.AutoMapper;
 using GeekShop.CartAPI.Repository;
-using GeekShop.CartAPI.Model.Context;
+using GeekShop.OrderAPI.Model.Context;
+using GeekShop.OrderAPI.RabbitMQSender;
+using GeekShopping.OrderAPI.MessageConsumer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using GeekShop.CartAPI.RabbitMQSender;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
-//Add AutoMapper
-IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
-builder.Services.AddSingleton(mapper);
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-//Add IoC
-builder.Services.AddScoped<ICartRepository, CartRepository>();
-builder.Services.AddSingleton<IRabbitMQMessageSender, RabbitMQMessageSender>();
-
-//builder.Services.AddScoped<ICouponRepository, CouponRepository>();
-
 
 //Add DbConnection
 
 var connectionString = builder.Configuration.GetConnectionString("AppDb");
+var connection = builder.Configuration.GetConnectionString("OrderDb");
 
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<MySQLContext>(options =>
     options.UseSqlServer(connectionString));
+
+var dbContextBuilder = new DbContextOptionsBuilder<MySQLContext>();
+dbContextBuilder.UseSqlServer(connection);
+
+builder.Services.AddSingleton(new OrderRepository(dbContextBuilder.Options));
+
+//Add IOC
+builder.Services.AddHostedService<RabbitMQCheckoutConsumer>();
+builder.Services.AddSingleton<IRabbitMQMessageSender, RabbitMQMessageSender>();
+
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+IdentityModelEventSource.ShowPII = true;
 
 
 builder.Services.AddAuthentication("Bearer")
@@ -85,12 +85,6 @@ builder.Services.AddSwaggerGen(c =>
                 });
 });
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -103,7 +97,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -31,7 +31,7 @@ const Product = () => {
       <h1>Produtos</h1>
       <div className='products'>
         {products.map(product => (
-          <div>
+          <div key={product.name}>
             <CCard style={{ width: '18rem' }}>
               <CCardBody>
                 <CCardTitle>{product.name}</CCardTitle>

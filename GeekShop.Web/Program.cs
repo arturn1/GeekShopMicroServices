@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.IdentityModel.Tokens;
 using GeekShop.Web.Middleware;
-using GeekShopping.Web.Services;
+using GeekShop.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

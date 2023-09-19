@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using GeekShop.Web.Utils;
 using System.Net;
 
-namespace GeekShopping.Web.Services
+namespace GeekShop.Web.Services
 {
     public class CouponService : ICouponService
     {

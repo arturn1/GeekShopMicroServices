@@ -18,7 +18,7 @@ export default function Header() {
                     <CNavbarBrand href="#">
                         Olá, {user?.userData?.profile.name}
                     </CNavbarBrand>
-                    <CButton href="https://localhost:4435" >{() => user?.signOut()} Logout</CButton >
+                    <CButton onClick={() => user?.signOut()}> Logout</CButton >
                 </CContainer>
             </CNavbar>
         </>
